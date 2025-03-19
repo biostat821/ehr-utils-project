@@ -62,30 +62,23 @@ We will repeat this as many times as necessary to get approval.
 
 | date | due |
 | ---- | --------|
-| 1/29 | Phase 1 PR review requested |
-| 2/12 | Phase 1 PR merged <br/>Phase 2 PR review requested |
-| 2/26 | Phase 2 PR merged <br/>Phase 3 PR review requested |
-| 3/05 | Phase 3 PR merged <br/>Phase 4 PR review requested |
-| 3/26 | Phase 4 PR merged <br/>Phase 5 PR review requested |
-| 4/09 | Phase 5 PR merged <br/>Phase 6 PR review requested |
+| 2/12 | Phase 1 PR merged |
+| 2/26 | Phase 2 PR merged |
+| 3/19 | Phase 3 PR merged |
+| 3/26 | Phase 4 PR merged |
+| 4/09 | Phase 5 PR merged |
 | 4/16 | Phase 6 PR merged |
 
 ## Scoring
 
-There are 12 equally-weighted parts corresponding to rows above.
-
-"Review requested" requires that the automated checks pass.
-
-"Merged" requires approval by instructor(s).
+There are 6 equally-weighted parts corresponding to rows above.
 
 If these are completed on-time, full credit will be awarded.
-If late, each is 20% off per day late:
+If late, each is 1% off per day late:
 
 | days late | penalty |
 | --------- | ------- |
-| 0-1       | -20%    |
-| 1-2       | -40%    |
-| 2-3       | -60%    |
-| 3-4       | -80%    |
-| 4+        | -100%   |
+| 0-1       | -1%     |
+| 1-2       | -2%     |
+| ...       | ...     |
 
