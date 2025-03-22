@@ -67,7 +67,7 @@ We will repeat this as many times as necessary to get approval.
 | 3/19 | Phase 3 PR merged |
 | 3/26 | Phase 4 PR merged |
 | 4/09 | Phase 5 PR merged |
-| 4/16 | Phase 6 PR merged |
+| 4/23 | Phase 6 PR merged |
 
 ## Scoring
 
