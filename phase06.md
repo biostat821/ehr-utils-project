@@ -16,7 +16,7 @@ Revise documentation and tests as necessary.
 
 * There is no need to prefix attributes with the class name. For example, "lab_name" is probably a redundant name. It's already an attribute of a "lab" object. Consider `Lab.lab_value` vs. just `Lab.value`.
 
-* You can avoid testing the data-parsing tools in unit tests for analysis functions by populating the database directly.
+* You can avoid testing the data-parsing tools in unit tests for analysis functions by populating the database directly. Use `ehr_utils_utils.fake_tables`.
 
 * We don't want to rely on a pre-populated database file, for a couple reasons:
   * We can't easily see what's in there, which makes it difficult to verify these tests. 
