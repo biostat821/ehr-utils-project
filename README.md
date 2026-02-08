@@ -1,6 +1,6 @@
 # ehr-utils-project
 
-You have been granted access to a repository: https://github.com/biostat821-2025/ehr-utils-{username}. It will eventually contain six issues with instructions for each of the six phases of the project. You will progress through the phases one-at-a-time, in order. Each phase is completed by generating a pull request (PR), getting it approved, and merging it into the repository's `main` branch. Your work in each phase will build upon the previous one - expanding and improving your library!
+You have been granted access to a repository: https://github.com/biostat821-202/ehr-utils-{username}. It will eventually contain six issues with instructions for each of the six phases of the project. You will progress through the phases one-at-a-time, in order. Each phase is completed by generating a pull request (PR), getting it approved, and merging it into the repository's `main` branch. Your work in each phase will build upon the previous one - expanding and improving your library!
 
 ## General process, per phase
 
@@ -62,12 +62,12 @@ We will repeat this as many times as necessary to get approval.
 
 | date | due |
 | ---- | --------|
-| 2/12 | Phase 1 PR merged |
-| 2/26 | Phase 2 PR merged |
-| 3/19 | Phase 3 PR merged |
-| 3/26 | Phase 4 PR merged |
-| 4/09 | Phase 5 PR merged |
-| 4/23 | Phase 6 PR merged |
+| 2/19 | Phase 1 PR merged |
+| 3/02 | Phase 2 PR merged |
+| 3/13 | Phase 3 PR merged |
+| 3/24 | Phase 4 PR merged |
+| 4/04 | Phase 5 PR merged |
+| 4/15 | Phase 6 PR merged |
 
 ## Scoring
 
@@ -82,3 +82,4 @@ If late, each is 1% off per day late:
 | 1-2       | -2%     |
 | ...       | ...     |
 
+If one phase is late, the due dates for the following ones will be pushed back to allow 11 days after approval of the previous phase (or 4/15 - whichever comes first).
