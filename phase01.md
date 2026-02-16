@@ -65,14 +65,14 @@ Your submission should pass checks by `ruff` and `mypy`. You can see the specifi
 
 1. Your library should not print anything unless printing is specifically requested, e.g. with a `print_thing()` method or a `verbose=True` argument.
 
-  We're building a programmatic tool that could be called by a human with eyes, or could be called by some other code buried beneath yet more code. If your goal is to provide a result, return a value. If your goal is to report a problem, raise an exception. Debugging print statements should not be in "production" code or automated tests (no one will read them), only in scripts to be run by humans (e.g. in an `if __name__ == "__main__"` block).
+   We're building a programmatic tool that could be called by a human with eyes, or could be called by some other code buried beneath yet more code. If your goal is to provide a result, return a value. If your goal is to report a problem, raise an exception. Debugging print statements should not be in "production" code or automated tests (no one will read them), only in scripts to be run by humans (e.g. in an `if __name__ == "__main__"` block).
 
 1. In Python, unexpected states should be communicated via raised exceptions. The following should **not** be used to convey that something has gone wrong:
-  * A special return value, e.g. `None` or -1. Clients may not check for these and will encounter problems downstream that are harder to debug.
-  * A print statement. See above.
-  * A returned `Exception`. Raise the exception instead.
+   * A special return value, e.g. `None` or -1. Clients may not check for these and will encounter problems downstream that are harder to debug.
+   * A print statement. See above.
+   * A returned `Exception`. Raise the exception instead.
 
-  Note that other languages like C++ have different philosophies about errors/exceptions and values representing exceptional cases may be passed from functions, but in Python it's conventional to use exceptions for control flow like this.
+   Note that other languages like C++ have different philosophies about errors/exceptions and values representing exceptional cases may be passed from functions, but in Python it's conventional to use exceptions for control flow like this.
 
 1. We want to keep `try..except` blocks as small as possible because a) less indentation is better for readability, b) it should be clear to the reader what you're intending to catch (we don't want big catch-alls) and c) this could catch errors you weren't expecting, effectively hiding bugs from you.
 
