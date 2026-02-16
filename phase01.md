@@ -57,116 +57,157 @@ Your submission should pass checks by `ruff` and `mypy`. You can see the specifi
 
 ## Common guidance
 
-1. Do not commit the data files. They are not a part of your library.
+### Data files
 
-1. Do not name your files "hw1.py" or even "phase01.py". We will be updating these files at every phase rather than creating new ones, so something informative like "ehr_utils.py" would be more appropriate.
+Do not commit the data files. They are not a part of your library.
 
-1. Do not include any files that are not part of your library or its tests. Unless they have a clear and unique purpose, they're just clutter.
+### File names
 
-1. Your library should not print anything unless printing is specifically requested, e.g. with a `print_thing()` method or a `verbose=True` argument.
+Do not name your files "hw1.py" or even "phase01.py". We will be updating these files at every phase rather than creating new ones, so something informative like "ehr_utils.py" would be more appropriate.
 
-   We're building a programmatic tool that could be called by a human with eyes, or could be called by some other code buried beneath yet more code. If your goal is to provide a result, return a value. If your goal is to report a problem, raise an exception. Debugging print statements should not be in "production" code or automated tests (no one will read them), only in scripts to be run by humans (e.g. in an `if __name__ == "__main__"` block).
+### Extra files
 
-1. In Python, unexpected states should be communicated via raised exceptions. The following should **not** be used to convey that something has gone wrong:
-   * A special return value, e.g. `None` or -1. Clients may not check for these and will encounter problems downstream that are harder to debug.
-   * A print statement. See above.
-   * A returned `Exception`. Raise the exception instead.
+Do not include any files that are not part of your library or its tests. Unless they have a clear and unique purpose, they're just clutter.
 
-   Note that other languages like C++ have different philosophies about errors/exceptions and values representing exceptional cases may be passed from functions, but in Python it's conventional to use exceptions for control flow like this.
+### Printing
 
-1. We want to keep `try..except` blocks as small as possible because a) less indentation is better for readability, b) it should be clear to the reader what you're intending to catch (we don't want big catch-alls) and c) this could catch errors you weren't expecting, effectively hiding bugs from you.
+Your library should not print anything unless printing is specifically requested, e.g. with a `print_thing()` method or a `verbose=True` argument.
 
-1. Any code outside of a function definition will run whenever someone imports this file. Things that should only be run when the script is run from the command line should be put in a `if __name__ == "__main__"` block.
+We're building a programmatic tool that could be called by a human with eyes, or could be called by some other code buried beneath yet more code. If your goal is to provide a result, return a value. If your goal is to report a problem, raise an exception. Debugging print statements should not be in "production" code or automated tests (no one will read them), only in scripts to be run by humans (e.g. in an `if __name__ == "__main__"` block).
 
-1. You're writing a library. Nothing computationally expensive should happen when a module is imported (reading files, parsing data, etc.), it should happen only when the client chooses (calls a function). In general, almost everything in your module should be inside a function and/or in the `if __name__ == "__main__"` block.
+### Exceptions
 
-1. You don't need to assume anything about the order of the columns - you should use the column headers to determine which is which.
+In Python, unexpected states should be communicated via raised exceptions. The following should **not** be used to convey that something has gone wrong:
 
-1. Please remove commented-out code. There is no good purpose it. It typically attempts to serve one of several functions, all of which are better achieved by other means:
+* A special return value, e.g. `None` or -1. Clients may not check for these and will encounter problems downstream that are harder to debug.
+* A print statement. See above.
+* A returned `Exception`. Raise the exception instead.
 
-    * remembering something you did before (git does this better)
-    * example usage (this should go in separate documentation, like the project README)
-    * test code (this should go in separate test files)
+Note that other languages like C++ have different philosophies about errors/exceptions and values representing exceptional cases may be passed from functions, but in Python it's conventional to use exceptions for control flow like this.
 
-1. Variable names in Python should use snake_case: https://peps.python.org/pep-0008/
+### Exception handling
 
-1. All imports should go at the top of the file: https://peps.python.org/pep-0008/
+We want to keep `try..except` blocks as small as possible because a) less indentation is better for readability, b) it should be clear to the reader what you're intending to catch (we don't want big catch-alls) and c) this could catch errors you weren't expecting, effectively hiding bugs from you.
 
-1. For the `patient_is_sick` function, note that there is a semantic difference between "this patient is not sick" and "we cannot determine whether this patient is sick" (for example, if no patient data can be found). The former should return `False`, but the latter should raise an exception.
+### Module-level code
 
-1.  Use "guard clauses" to improve readability.
+Any code outside of a function definition will run whenever someone imports this file. Things that should only be run when the script is run from the command line should be put in a `if __name__ == "__main__"` block.
 
-    Don't do this:
+You're writing a library. Nothing computationally expensive should happen when a module is imported (reading files, parsing data, etc.), it should happen only when the client chooses (calls a function). In general, almost everything in your module should be inside a function and/or in the `if __name__ == "__main__"` block.
 
-    ```python
-    if key in my_dict:
-        value = my_dict[key]
-        for i in range(5)
-            value += i
-        return value
-    else:
-        raise ValueError("No such key")
-    ```
+### Column order
 
-    Instead do this:
+You don't need to assume anything about the order of the columns - you should use the column headers to determine which is which.
 
-    ```python
-    if key not in my_dict:
-        raise ValueError("No such key")
+### Commented-out code
 
+Please remove commented-out code. There is no good purpose it. It typically attempts to serve one of several functions, all of which are better achieved by other means:
+
+* remembering something you did before (git does this better)
+* example usage (this should go in separate documentation, like the project README)
+* test code (this should go in separate test files)
+
+### Variable names
+
+Variable names in Python should use snake_case: https://peps.python.org/pep-0008/
+
+### Variable names, pt 2
+
+Use informative names: `training_predictors`, not `x` (no credit for saving characters).
+
+### Variable names, pt 3
+
+Use nouns for variables (`thing: int`) and verbs for functions/methods (`do_stuff(thing: int)`).
+
+### Variable names, pt 4
+
+Use plural nouns for collections (`things: list[int]`). It's usually unnecessary to include type information in the name, e.g. avoid `things_list: list[int]`.
+
+### Imports
+
+All imports should go at the top of the file: https://peps.python.org/pep-0008/
+
+### `is_sick` edge cases
+
+For the `patient_is_sick` function, note that there is a semantic difference between "this patient is not sick" and "we cannot determine whether this patient is sick" (for example, if no patient data can be found). The former should return `False`, but the latter should raise an exception.
+
+### Guard clauses
+
+Use "guard clauses" to improve readability.
+
+Don't do this:
+
+```python
+if key in my_dict:
     value = my_dict[key]
     for i in range(5)
         value += i
     return value
-    ```
+else:
+    raise ValueError("No such key")
+```
 
-    This improves readability by reducing indentation and cognitive load for readers.
-    
-    This also works for `break`ing or `continue`ing out of a loop, etc.
+Instead do this:
 
-1. The output from `parse_data`, whatever it is (even if it's a tuple), should be exactly what you pass to the analysis functions.
+```python
+if key not in my_dict:
+    raise ValueError("No such key")
 
-1. Merge nested if statements - combine multiple nested if statements into one logical expression. This can improve readability and make code easier to maintain. 
+value = my_dict[key]
+for i in range(5)
+    value += i
+return value
+```
 
-1.  Consider using maps instead of long if/else chains
+This improves readability by reducing indentation and cognitive load for readers.
 
-    Instead of this
-    ```python
-    if operator == ">":
-        return lab_value > value
-    elif operator == "<":
-        return lab_value < value
-    elif operator == ">=":
-        return lab_value >= value
-    elif operator == "<=":
-        return lab_value <= value
-    ```
+This also works for `break`ing or `continue`ing out of a loop, etc.
 
-    Use this
-    ```python
-    return {
-        ">": lab_value > value,
-        "<": lab_value < value,
-        ">=": lab_value >= value,
-        "<=": lab_value <= value,
-    }.get(operator)
-    ```
+### API consistency
 
-1. Use informative names: `training_predictors`, not `x` (no credit for saving characters).
+The output from `parse_data`, whatever it is (even if it's a tuple), should be exactly what you pass to the analysis functions.
 
-1. Use nouns for variables (`thing: int`) and verbs for functions/methods (`do_stuff(thing: int)`).
+### Nested `if` blocks
 
-1. Use plural nouns for collections (`things: list[int]`). It's usually unnecessary to include type information in the name, e.g. avoid `things_list: list[int]`.
+Merge nested if statements - combine multiple nested if statements into one logical expression. This can improve readability and make code easier to maintain. 
 
-1.  If you make a variable that it used just once, consider inlining it.
+### `if..elif` chain vs. map
 
-    Instead of this
-    ```python
-    thing = calculate_thing()
-    return thing
-    ```
+Consider using maps instead of long if/else chains
 
-    Use this
-    ```python
-    return calculate_thing()
-    ```
+Instead of this
+```python
+if operator == ">":
+    return lab_value > value
+elif operator == "<":
+    return lab_value < value
+elif operator == ">=":
+    return lab_value >= value
+elif operator == "<=":
+    return lab_value <= value
+```
+
+Use this
+```python
+return {
+    ">": lab_value > value,
+    "<": lab_value < value,
+    ">=": lab_value >= value,
+    "<=": lab_value <= value,
+}.get(operator)
+```
+
+### Temporary variables
+
+If you make a variable that it used just once, consider inlining it.
+
+Instead of this
+```python
+thing = calculate_thing()
+return thing
+```
+
+Use this
+```python
+return calculate_thing()
+```
