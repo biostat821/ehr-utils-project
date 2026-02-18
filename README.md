@@ -60,26 +60,22 @@ We will repeat this as many times as necessary to get approval.
 
 ## Schedule
 
-| date | due |
-| ---- | --------|
-| 2/19 | Phase 1 PR merged |
-| 3/02 | Phase 2 PR merged |
-| 3/13 | Phase 3 PR merged |
-| 3/24 | Phase 4 PR merged |
-| 4/04 | Phase 5 PR merged |
-| 4/15 | Phase 6 PR merged |
+Start: 2026-02-13 11:59pm EST
+
+End: 2026-04-15 11:59pm EDT
 
 ## Scoring
 
-There are 6 equally-weighted parts corresponding to rows above.
+There are 6 equally-weighted parts/phases.
 
-If these are completed on-time, full credit will be awarded.
-If late, each is 1% off per day late:
+* At the start time, a 7-day clock starts.
+* Whenever a phase is APPROVED, the clock resets to 7 days.
+* When the clock reaches 0, the "penalty" period starts. The current phase is penalized %1 for each day afterward until it is approved.
 
-| days late | penalty |
-| --------- | ------- |
-| 0-1       | -1%     |
-| 1-2       | -2%     |
-| ...       | ...     |
+  | days late | penalty |
+  | --------- | ------- |
+  | 0-1       | -1%     |
+  | 1-2       | -2%     |
+  | ...       | ...     |
 
-If one phase is late, the due dates for the following ones will be pushed back to allow 11 days after approval of the previous phase (or 4/15 - whichever comes first).
+* At the end time, reviews will stop. Unapproved phases will be scored according their current completeness and quality at that time.
