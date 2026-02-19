@@ -68,8 +68,10 @@ End: 2026-04-15 11:59pm EDT
 
 There are 6 equally-weighted parts/phases.
 
-* At the start time, a 7-day clock starts.
-* Whenever a phase is APPROVED, the clock resets to 7 days.
+* At the start time, a 7-day clock starts for phase 1.
+* Whenever a PR review is requested by the author, the clock pauses.
+* Whenever changes are requested by the reviewer, the clock resumes.
+* Whenever the PR is APPROVED by the reviewer, the phase is complete and another 7-day clock starts for the next phase.
 * When the clock reaches 0, the "penalty" period starts. The current phase is penalized %1 for each day afterward until it is approved.
 
   | days late | penalty |
