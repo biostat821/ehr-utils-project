@@ -44,6 +44,7 @@ All of this should be generalizable, i.e. it should be designed to work for TSV 
 The analysis functions should not read from disk.
 
 You may like to use the following (standard) libraries.
+* `collections.abc`
 * `datetime`
 * `typing`
 * `operator`
