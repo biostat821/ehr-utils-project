@@ -40,10 +40,18 @@ You _may_ then be asked to make the proposed changes before approval.
 
 ## Common guidance
 
-1. You should add time complexity for every line. Don't assume that something is fast because it's a single line. For example, the built-in function `sorted()` generally takes $n \log n$ time.
+### Every line
 
-1. Make sure you're editing the existing library file(s) rather than creating new ones.
+You should add time complexity for every line. Don't assume that something is fast because it's a single line. For example, the built-in function `sorted()` generally takes $n \log n$ time.
 
-1. `open(filename)` only opens a file, without reading it, so it takes O(1) time.
+### Edit existing file(s)
 
-1. If you're spending linear time looking up objects based on some unique ID, consider using a dictionary.
+Make sure you're editing the existing library file(s) rather than creating new ones.
+
+### `open` doesn't read
+
+`open(filename)` only opens a file, without reading it, so it takes O(1) time.
+
+### Unique-ID lookups
+
+If you're spending linear time looking up objects based on some unique ID, consider using a dictionary.

@@ -35,8 +35,6 @@ def patient_is_sick(records: DATA_TYPE, patient_id: str, lab_name: str, operator
 
 * For `patient_is_sick`, we want to test at least two examples, one that returns `True` and one that returns `False`. Otherwise your function could simply `return True` (or `False`) and pass the tests without doing anything smart at all.
 
-* Instead of `x is False`, use `not x`.
-
 * Rather than making a bunch of small assertions about a collection, consider making one big `==` assertion.
 
 * Look out for superfluous assertions. For example, if you have asserted that `x == 23`, there is no need to assert that `x != 40`.
@@ -47,128 +45,146 @@ def patient_is_sick(records: DATA_TYPE, patient_id: str, lab_name: str, operator
 
 ## Common guidance
 
-1. `is True` is always redundant because the only thing that `is True` is `True` itself. See also https://docs.python.org/3/library/stdtypes.html#truth-value-testing.
+### Avoid `is True`
 
-1. Instead of `condition is False`, prefer `not condition`.
+`is True` is always redundant because the only thing that `is True` is `True` itself. See also https://docs.python.org/3/library/stdtypes.html#truth-value-testing.
 
-1. Keep the test data small. It should be easy for a human reading the tests to understand what to expect.
+### Avoid `is False`
 
-1.  Tests are ideally trivially verifiable.
+Instead of `condition is False`, prefer `not condition`.
 
-    This is good:
+### Small test data
 
-    ```python
-    def test_add_one():
-        assert add_one(5) == 6
-    ```
+Keep the test data small. It should be easy for a human reading the tests to understand what to expect.
 
-    We expect that `add_one()` will add 1, and the test verifies that 5 + 1 = 6.
+### Avoid logic in tests
 
-    This is less good:
+Tests are ideally trivially verifiable.
 
-    ```python
-    def test_mean():
-        data = [1, 3, 31, 73, 44]
-        total = 0
-        count = 5
-        for datum in data:
-            total += datum
-            count += 1
+This is good:
 
-        assert mean(data) == total/count
-    ```
+```python
+def test_add_one():
+    assert add_one(5) == 6
+```
 
-    Determining whether this is in fact testing `mean()` correctly involves understanding some non-trivial logic. This test is actually wrong - can you see why?
-    
-    If our tests need their own tests so that we can trust that they're correct, they're not really improving our overall confidence in things.
+We expect that `add_one()` will add 1, and the test verifies that 5 + 1 = 6.
 
-    This would be better:
+This is less good:
 
-    ```python
-    def test_mean():
-        assert mean([1, 3, 31, 73, 44]) == 30.4
-    ```
+```python
+def test_mean():
+    data = [1, 3, 31, 73, 44]
+    total = 0
+    count = 5
+    for datum in data:
+        total += datum
+        count += 1
 
-    It takes the human reader a little work to figure out that the answer should be 30.4. But its better than re-implementing the `mean()` logic.
+    assert mean(data) == total/count
+```
 
-1.  Keep tests focused. Unit tests should test just one function.
+Determining whether this is in fact testing `mean()` correctly involves understanding some non-trivial logic. This test is actually wrong - can you see why?
 
-    ```python
-    from my_module import a, b
+If our tests need their own tests so that we can trust that they're correct, they're not really improving our overall confidence in things.
 
-    def test_a():
-        intermediate_thing = a()
-        result = b(intermediate_thing)
+This would be better:
 
-        assert result == "success"
-    ```
+```python
+def test_mean():
+    assert mean([1, 3, 31, 73, 44]) == 30.4
+```
 
-    In the above example, both `a` and `b` are tested together; if both contain bugs such that the result still looks good, you cannot tell that `intermediate_thing` is wrong. The following are better unit tests.
+It takes the human reader a little work to figure out that the answer should be 30.4. But its better than re-implementing the `mean()` logic.
 
-    ```python
-    from my_module import a, b
+### Keep tests focused
 
-    def test_a():
-        intermediate_thing = a()
+Unit tests should test just one function.
 
-        assert intermediate_thing == "in-progress"
+```python
+from my_module import a, b
 
-    def test_b():
-        result = b("in-progress")
+def test_a():
+    intermediate_thing = a()
+    result = b(intermediate_thing)
 
-        assert result == "success"
-    ```
+    assert result == "success"
+```
 
-    Note that other non-unit tests (e.g. "integration" tests or "end-to-end" tests) may be more complex, but these should typically be used _in addition to_ unit tests for the individual components.
+In the above example, both `a` and `b` are tested together; if both contain bugs such that the result still looks good, you cannot tell that `intermediate_thing` is wrong. The following are better unit tests.
 
-1.  Keep tests focused. Setup and assertions should ideally include only the details relevant to the behavior being tested.
+```python
+from my_module import a, b
 
-    ```python
-    def test_rename_student():
-        student = create_student(name="Alice", course="BIOSTAT 821")
+def test_a():
+    intermediate_thing = a()
 
-        rename_student(student, "Bob")
+    assert intermediate_thing == "in-progress"
 
-        assert student == create_student(name="Bob", course="BIOSTAT 821")
-    ```
+def test_b():
+    result = b("in-progress")
 
-    This creates `student` with the `course` attribute, which is unrelated to the behavior of `rename_student`.
-    If the irrelevant attribute can be omitted, do that. Often such details are actually required, but should be hidden from readers of the test.
+    assert result == "success"
+```
 
-    ```python
-    def create_test_student(name: str) -> Student:
-        return create_student(name=name, course="test course")
+Note that other non-unit tests (e.g. "integration" tests or "end-to-end" tests) may be more complex, but these should typically be used _in addition to_ unit tests for the individual components.
 
-    def test_rename_student():
-        student = create_test_student(name="Alice")
+### Keep tests focused, pt 2
 
-        rename_student(student, "Bob")
+Setup and assertions should ideally include only the details relevant to the behavior being tested.
 
-        assert student.name == "Bob"
-    ```
+```python
+def test_rename_student():
+    student = create_student(name="Alice", course="BIOSTAT 821")
 
-    We use a test helper function `create_test_student`, which uses a default `course`. This way the test does not need to mention `course` at all. In addition, we assert only the specific attribute value of interest, rather than asserting equality of the entire `Student` object
+    rename_student(student, "Bob")
 
-1.  Use the arrange-act-assert structure.
+    assert student == create_student(name="Bob", course="BIOSTAT 821")
+```
 
-    ```python
-    def test_rename_student():
-        # arrange
-        student = create_test_student(name="Alice")
+This creates `student` with the `course` attribute, which is unrelated to the behavior of `rename_student`.
+If the irrelevant attribute can be omitted, do that. Often such details are actually required, but should be hidden from readers of the test.
 
-        # act
-        rename_student(student, "Bob")
+```python
+def create_test_student(name: str) -> Student:
+    return create_student(name=name, course="test course")
 
-        # assert
-        assert student.name == "Bob"
-    ```
+def test_rename_student():
+    student = create_test_student(name="Alice")
 
-    * The "arrange" section constructs things that the test will need, or configures the test environment, e.g. creating file(s).
-    * The "act" section calls the function under test.
-    * The "assert" section makes assertions about the results of the function - its returned value and/or effects on the test environment.
+    rename_student(student, "Bob")
 
-    It's helpful to include blank lines to demarcate the sections, or even comments as in the example above.
+    assert student.name == "Bob"
+```
 
-1. Tests should attempt to cover the full scope of _behavior_ exhibited by the function under test. For example, if the function under test returns a boolean, you should test examples that produce both results. If your tests only ever assert that the result is true, they would still pass if your function did simply `return true`.
+We use a test helper function `create_test_student`, which uses a default `course`. This way the test does not need to mention `course` at all. In addition, we assert only the specific attribute value of interest, rather than asserting equality of the entire `Student` object
 
-1. No need to assert on types. `mypy` handles type enforcement.
+### Test structure
+
+Use the arrange-act-assert structure.
+
+```python
+def test_rename_student():
+    # arrange
+    student = create_test_student(name="Alice")
+
+    # act
+    rename_student(student, "Bob")
+
+    # assert
+    assert student.name == "Bob"
+```
+
+* The "arrange" section constructs things that the test will need, or configures the test environment, e.g. creating file(s).
+* The "act" section calls the function under test.
+* The "assert" section makes assertions about the results of the function - its returned value and/or effects on the test environment.
+
+It's helpful to include blank lines to demarcate the sections, or even comments as in the example above.
+
+### Thoroughly test code _behavior_
+
+Tests should attempt to cover the full scope of _behavior_ exhibited by the function under test. For example, if the function under test returns a boolean, you should test examples that produce both results. If your tests only ever assert that the result is true, they would still pass if your function did simply `return true`.
+
+### Avoid asserting about types
+
+No need to assert on types. `mypy` handles type enforcement.
